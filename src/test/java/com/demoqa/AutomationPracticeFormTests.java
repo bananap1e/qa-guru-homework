@@ -1,6 +1,5 @@
 package com.demoqa;
 
-import com.codeborne.selenide.*;
 import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Condition.*;
@@ -8,13 +7,7 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 
-public class AutomationPracticeFormTests {
-
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
-    }
+public class AutomationPracticeFormTests extends TestBase {
 
     @Test
     void fillAutomationPracticeFormTest() {
@@ -25,37 +18,32 @@ public class AutomationPracticeFormTests {
         String number = "0123456789";
         String birth = "05 October,2000";
         String hobbies = "Music";
+        String image = "test.png";
         String address = "Test Address";
+        String state = "NCR";
+        String city = "Noida";
 
+        automationPracticeFormPage.openPage()
+                .setFirstName(name)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setGender(gender)
+                .setNumber(number)
+                .setBirthDate()
+                .setHobbies(hobbies)
+                .uploadImage(image)
+                .setCityAndState(state, city)
 
-        open("/automation-practice-form");
-        $(".main-header").shouldHave(text("Practice Form"));
+                .verifyModalAppears()
 
-        $("#firstName").setValue(name);
-        $("#lastName").setValue(lastName);
-        $("#userEmail").setValue(email);
-        $("#genterWrapper").$(byText(gender)).click();
-        $("#userNumber").setValue(number);
-
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__year-select").selectOption("2000");
-        $(".react-datepicker__month-select").selectOption("October");
-        $(".react-datepicker__day--005").click();
-
-        $("#hobbiesWrapper").$(byText(hobbies)).click();
-        $("#uploadPicture").uploadFromClasspath("test.png");
-        $("#currentAddress").setValue(address);
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText("Noida")).click();
-        $("#submit").click();
-
-        $(".modal-content").shouldBe(visible);
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-
-        $(".modal-body").shouldHave(text(name + " " + lastName), (text(email)),
-                (text(number)), (text(address)), (text(gender)),
-                (text(birth)), (text(hobbies)), (text("test.png")), (text("NCR Noida")));
+                .verifyResult("Student Name", name + " " + lastName)
+                .verifyResult("Student Email", email)
+                .verifyResult("Gender", gender)
+                .verifyResult("Mobile", number)
+                .verifyResult("Date of Birth", birth)
+                .verifyResult("Hobbies", hobbies)
+                .verifyResult("Picture", image)
+                .verifyResult("Address", address)
+                .verifyResult("State and City", state + " " + city);
     }
 }
