@@ -1,4 +1,4 @@
-package demoqa;
+package com.demoqa;
 
 import com.codeborne.selenide.*;
 import org.junit.jupiter.api.*;
