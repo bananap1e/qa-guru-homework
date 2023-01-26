@@ -50,6 +50,11 @@ public class AutomationPracticeFormPage {
         return this;
     };
 
+    public AutomationPracticeFormPage setSubject(String value) {
+        $("#subjectsInput").setValue(value).pressEnter();
+        return this;
+    }
+
     public AutomationPracticeFormPage setHobbies(String value) {
         $("#hobbiesWrapper").$(byText(value)).click();
         return this;

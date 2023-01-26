@@ -11,17 +11,18 @@ public class AutomationPracticeFormTests extends TestBase {
 
     @Test
     void fillAutomationPracticeFormTest() {
-        String name = "test";
+        String name     = "test";
         String lastName = "lastTest";
-        String email = "test@mail.com";
-        String gender = "Male";
-        String number = "0123456789";
-        String birth = "05 October,2000";
-        String hobbies = "Music";
-        String image = "test.png";
-        String address = "Test Address";
-        String state = "NCR";
-        String city = "Noida";
+        String email    = "test@mail.com";
+        String gender   = "Male";
+        String number   = "0123456789";
+        String birth    = "05 October,2000";
+        String subject  = "Maths";
+        String hobbies  = "Music";
+        String image    = "test.png";
+        String address  = "Test Address";
+        String state    = "NCR";
+        String city     = "Noida";
 
         automationPracticeFormPage.openPage()
                 .setFirstName(name)
@@ -30,8 +31,10 @@ public class AutomationPracticeFormTests extends TestBase {
                 .setGender(gender)
                 .setNumber(number)
                 .setBirthDate()
+                .setSubject(subject)
                 .setHobbies(hobbies)
                 .uploadImage(image)
+                .setAddress(address)
                 .setCityAndState(state, city)
 
                 .verifyModalAppears()
@@ -41,6 +44,7 @@ public class AutomationPracticeFormTests extends TestBase {
                 .verifyResult("Gender", gender)
                 .verifyResult("Mobile", number)
                 .verifyResult("Date of Birth", birth)
+                .verifyResult("Subjects", subject)
                 .verifyResult("Hobbies", hobbies)
                 .verifyResult("Picture", image)
                 .verifyResult("Address", address)
